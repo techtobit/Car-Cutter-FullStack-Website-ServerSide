@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.lcuk6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+//function for all cars and inventory data
 async function run() {
 
  try {
@@ -25,9 +26,19 @@ async function run() {
 
   //load multiple items data from database
   app.get('/inventory', async (req, res) => {
+   console.log('query', req.query);
+   const page = parseInt(req.query.page)
+   const pageSize = parseInt(req.query.pageSize)
    const query = {}
    const cursor = collection.find(query)
-   const items = await cursor.toArray();
+   let items;
+   if (page || pageSize) {
+    items = await cursor.skip(page * pageSize).limit(pageSize).toArray();
+   }
+   else {
+    items = await cursor.toArray();
+   }
+
    res.send(items);
   })
 
@@ -52,6 +63,16 @@ async function run() {
    const query = { _id: ObjectId(id) };
    const deleteItem = await collection.deleteOne(query);
    res.send(deleteItem);
+  })
+
+
+  //pagination
+  app.get('/carsPagination', async (req, res) => {
+
+   const query = {}
+   const cursor = collection.find(query)
+   const count = await cursor.count();
+   res.send({ count })
   })
 
 
