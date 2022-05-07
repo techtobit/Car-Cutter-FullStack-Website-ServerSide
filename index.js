@@ -75,7 +75,7 @@ async function run() {
    res.send({ count })
   })
 
-  //Upadate Items Quantity
+  //Update Items Quantity
   app.put('/inventory/:id', async (req, res) => {
    const id = req.params.id;
    const updateQuantity = req.body;
@@ -101,5 +101,5 @@ run().catch(console.dir)
 
 
 app.listen(port, () => {
- console.log(`Node Express is Runging from ${port}`);
+ console.log(`Node Express is Running from ${port}`);
 })
