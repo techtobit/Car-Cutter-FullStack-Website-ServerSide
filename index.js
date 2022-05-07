@@ -57,23 +57,6 @@ async function run() {
    res.send(item)
   })
 
-  //delete oneItems form database
-  app.delete('/inventory/:id', async (req, res) => {
-   const id = req.params.id;
-   const query = { _id: ObjectId(id) };
-   const deleteItem = await collection.deleteOne(query);
-   res.send(deleteItem);
-  })
-
-
-  //pagination
-  app.get('/carsPagination', async (req, res) => {
-
-   const query = {}
-   const cursor = collection.find(query)
-   const count = await cursor.count();
-   res.send({ count })
-  })
 
   //Update Items Quantity
   app.put('/inventory/:id', async (req, res) => {
@@ -89,6 +72,24 @@ async function run() {
    const totalQuantity = await collection.updateOne(filter, upDateQuantity, options)
 
    res.send(totalQuantity);
+  })
+
+  //pagination
+  app.get('/carsPagination', async (req, res) => {
+
+   const query = {}
+   const cursor = collection.find(query)
+   const count = await cursor.count();
+   res.send({ count })
+  })
+
+
+  //delete oneItems form database
+  app.delete('/inventory/:id', async (req, res) => {
+   const id = req.params.id;
+   const query = { _id: ObjectId(id) };
+   const deleteItem = await collection.deleteOne(query);
+   res.send(deleteItem);
   })
 
 
