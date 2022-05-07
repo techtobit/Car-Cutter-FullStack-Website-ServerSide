@@ -75,6 +75,22 @@ async function run() {
    res.send({ count })
   })
 
+  //Upadate Items Quantity
+  app.put('/inventory/:id', async (req, res) => {
+   const id = req.params.id;
+   const updateQuantity = req.body;
+   const filter = { _id: ObjectId(id) };
+   const options = { upsert: true };
+   const upDateQuantity = {
+    $set: {
+     quantity: updateQuantity.quantity
+    }
+   }
+   const totalQuantity = await collection.updateOne(filter, upDateQuantity, options)
+
+   res.send(totalQuantity);
+  })
+
 
  } catch (error) {
   console.log(error);
