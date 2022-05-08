@@ -1,6 +1,7 @@
 const express = require('express');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
+var jwt = require('jsonwebtoken');
 const app = express()
 const cors = require('cors');
 const port = process.env.PORT || 5000;
@@ -24,9 +25,18 @@ async function run() {
   await client.connect();
   const collection = client.db('assainment11').collection("items");
 
+  // JWT Login Auth
+  app.post('/login', async (req, res) => {
+   const user = req.body;
+   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {
+    expiresIn: '1d'
+   })
+   res.send(accessToken)
+  })
+
+
   //load multiple items data from database
   app.get('/inventory', async (req, res) => {
-   console.log('query', req.query);
    const page = parseInt(req.query.page)
    const pageSize = parseInt(req.query.pageSize)
    const query = {}
