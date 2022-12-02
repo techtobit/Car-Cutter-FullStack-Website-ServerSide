@@ -91,7 +91,6 @@ async function run() {
    res.send({ count })
   })
 
-
   //delete oneItems form database
   app.delete('/inventory/:id', async (req, res) => {
    const id = req.params.id;
