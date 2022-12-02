@@ -4,7 +4,7 @@ require('dotenv').config()
 var jwt = require('jsonwebtoken');
 const app = express()
 const cors = require('cors');
-const port = process.env.PORT;
+const port = 5001;
 
 // middleware
 app.use(cors())
