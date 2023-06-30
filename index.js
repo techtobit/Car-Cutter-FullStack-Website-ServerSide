@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
- res.send('hello world! Railway')
+ res.send('hello world!, Rander')
 })
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.lcuk6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
