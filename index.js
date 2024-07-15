@@ -20,7 +20,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
 
  try {
-  await client.connect();
+  // await client.connect();
   const collection = client.db('assainment11').collection("items");
 
   // JWT Login Auth
